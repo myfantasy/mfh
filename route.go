@@ -14,6 +14,21 @@ type Route struct {
 	defRoute func(http.ResponseWriter, *http.Request)
 }
 
+// AddDirectRouteH Add Exec route
+func (r *Route) AddDirectRouteH(uri string, h http.Handler) {
+	r.AddDirectRoute(uri, h.ServeHTTP)
+}
+
+// AddRouteH Add route
+func (r *Route) AddRouteH(uri string, h http.Handler) {
+	r.AddRoute(uri, h.ServeHTTP)
+}
+
+// AddDefaultRouteH Add default route
+func (r *Route) AddDefaultRouteH(h http.Handler) {
+	r.AddDefaultRoute(h.ServeHTTP)
+}
+
 // AddDirectRoute Add Exec route
 func (r *Route) AddDirectRoute(uri string, f func(http.ResponseWriter, *http.Request)) {
 	uri = "/" + uri
